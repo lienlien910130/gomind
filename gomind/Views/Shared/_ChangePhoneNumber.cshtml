@@ -1,0 +1,36 @@
+﻿@model IdentitySample.Models.AddPhoneNumberViewModel
+
+@using (Ajax.BeginForm("AddPhoneNumber", "Manage", new { @class = "form-horizontal", role = "form" }, new AjaxOptions { UpdateTargetId = "changephone", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+{
+    <div id="changephone">
+
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Number, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+            </div>
+        </div>
+        <br /><br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="發送認證碼" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
+
+
+
+
+
+
+

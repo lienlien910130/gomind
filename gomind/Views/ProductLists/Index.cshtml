@@ -1,0 +1,93 @@
+﻿@model IEnumerable<gomind.Models.ProductList>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserNickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.plistsale_mnumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodlist_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodlist_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodlist_price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodlist_content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prodlist_followtimes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.onekind)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.twokind)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.url)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserNickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.plistsale_mnumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodlist_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodlist_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodlist_price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodlist_content)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prodlist_followtimes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.onekind)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.twokind)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.url)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.number }) |
+            @Html.ActionLink("Details", "Details", new { id=item.number }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.number })
+        </td>
+    </tr>
+}
+
+</table>

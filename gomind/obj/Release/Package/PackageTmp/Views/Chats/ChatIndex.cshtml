@@ -1,0 +1,282 @@
+﻿@model IdentitySample.Models.ChatIndex
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <title>Gomind</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" media="screen" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
+    <link href="~/Content/_ChatIndex.css" rel="stylesheet" />
+    
+    <script type="text/javascript">
+    function OnSuccess(data) {
+        $("#message").val("");
+    }
+    $(document).ready(function () {
+            var refreshId = setInterval(
+                "updateChatArea()",
+                1000);
+            $('#newmessage_messagebody').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#newmessage_sendbutton").click();
+                }
+            });
+    });
+    function updateChatArea() {
+            $.getJSON(
+               "/Chats/GetMessages/",
+                {id:@Model.Chat.ID },
+                function (data) {
+                    $("#chatarea").html("");
+                    var x;
+                    if (data.length > 0 ) {
+                        for (x in data) {
+                             $("#chatarea").html(
+                             $("#chatarea").html() + 
+                             "<div class='col-lg-12 pull-left' style='text-align:left'><p><b>" +
+                             data[x].Username + "</b> <i>(" +
+                             data[x].PostDateTime + ")</i><br/>" +
+                             data[x].MessageBody +"</p></div>");
+                        }
+                    }
+                    else {
+                        $("#chatarea").html("<p>No Messages</p>");
+                    }
+                });
+            $("#message").html("");
+        }
+        function sendNewMessage() {
+            $.post(
+                "/Chats/AddMessage",
+                {
+                    Id:@Model.Chat.ID ,
+                    MessageBody: $("#newmessage_messagebody").val()
+                });
+            $("#newmessage_messagebody").val("");
+            updateChatArea();
+        }
+    </script>
+    <script>
+         window.setInterval(function () {
+                 search()
+         }, 1000);
+
+             function search() {
+                 $.getJSON({
+                     type: "GET",
+                     url: "/home/GetChat",
+                     datatype: "Json",
+                     data: { id: '@Session["userid"]' },
+                     success: function (data) {
+                         //$("#halsl").html("");
+                         if (data.length > 0) {
+                             for (x in data) {
+                                 //$("#halsl").html(
+                                 //$("#halsl").html() +
+                                 //'<div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('#halsl').append(
+                                 ' <div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('.chat').click(function () {
+                                         $.ajax({
+                                             url: "/Chats/btnchat",
+                                             type: 'GET',
+                                             data: { id: data[x].ID },
+                                             success: function (result) {
+                                                 window.location = "Chats/ChatDetail?id=" + data[x].ID;
+
+                                                 //window.open("Chats/ChatDetail?id=" + data[x].ID ,'_blank', "");
+
+                                             }
+                                         });
+                                     });
+                             }
+                         }
+                         else {
+
+                         }
+                         //if (data == "1") {}
+                         //else {
+                         //    var s = data;
+                         //    $('body').append(
+                         //   '<div id="toTopss" class="btn btn-default btn-lg btn-block">你有新訊息</div>');
+                         //    $('#toTopss').click(function () {
+                         //        $.ajax({
+                         //            url: "/Chats/btnchat",
+                         //            type: 'GET',
+                         //            data: { id: data },
+                         //            success: function (result) {
+                         //                window.location = "Chats/ChatDetail?id="+data ;
+                         //            }
+                         //        });
+                         //    });
+                         //}
+
+                     },
+                error: function () {
+
+                     }
+                 });
+             }
+        $(document).ready(function () {
+
+            $('#search').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#cha").click();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.jpg" class="img-responsive" />
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="row">
+        <div style="width:200px"></div>
+        @Html.ActionLink("首頁", "Index", "Home", new { style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > @Html.ActionLink(Model.Chat.ProductList.prodlist_name, "Details", "ProductLists", new { id = Model.Chat.ProductList.number }, new { style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > <span style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">聊天室</span>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row">
+                <div class="col-sm-4" id="carousel-bounding-box">
+                    <div class="carousel slide" id="myCarousel">
+                        <div class="carousel-inner">
+                            <div class="active item" data-slide-number="0">
+                                <img src="/Files/GetPImage?id=@Model.Chat.ProductList.number" style="width:100%;height:300px;">
+                            </div>
+                            @foreach (var item in Model.Chat.ProductList.File)
+                            {
+                                if (item.number == 2)
+                                {
+                                    <div class="item" data-slide-number="1">
+                                        <img src="/Files/GetImage2?id=@Model.Chat.ProductList.number" style="width:100%;height:300px;">
+                                    </div>
+                                }
+                                if (item.number == 3)
+                                {
+                                    <div class="item" data-slide-number="2">
+                                        <img src="/Files/GetImage3?id=@Model.Chat.ProductList.number" style="width:100%;height:300px;">
+                                    </div>
+                                }
+                                if (item.number == 4)
+                                {
+                                    <div class="item" data-slide-number="3">
+                                        <img src="/Files/GetImage4?id=@Model.Chat.ProductList.number" style="width:100%;height:300px;">
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                    <br />
+                    <h4 style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">
+                        商品 : @Html.ActionLink(Model.Chat.ProductList.prodlist_name, "Details", "ProductLists", new { id = Model.Chat.ProductList.number }, null)
+                    </h4>
+                     <h4  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">賣家 : @Html.ActionLink(Model.Chat.toUserName, "Salers", "UserDatas", new { id = Model.Chat.toUserId, @class = "form-control", style = "" }, null)
+                     </h4>
+                    @if (Model.IsUser == true)
+                    {
+                        if (Model.IsOrder == true)
+                        {
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-10">
+                                    <input type="submit" value="訂單已完成" class="btn btn-default" disabled />
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("成立訂單", "Create", "Orders", new { id = Model.Chat.ID }, null)
+                        }
+
+                    }
+                    else
+                    {
+                        if (Model.IsOrder == true)
+                        {
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-15">
+                                    <input type="submit" value="已購買此商品" class="btn btn-default" disabled />
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.IsSale == true)
+                            {
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-15">
+                                    <input type="submit" value="商品已售出" class="btn btn-default" disabled />
+                                </div>
+                            </div>
+                            }
+                        }
+
+                    }
+                </div>
+
+            <div class="col-md-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-comment"></span>Chat
+                    </div>
+                    <div class="panel-body">
+                        <ul class="chat">
+                            <div id="chatarea">
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input type="text" id="newmessage_messagebody" size="90" class="form-control" />
+                            <input type="button" value="Send" id="newmessage_sendbutton" onclick="sendNewMessage()" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")

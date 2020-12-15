@@ -1,0 +1,40 @@
+﻿@model IdentitySample.Models.sale
+
+
+
+@if (Model.IsUser == true)
+{
+    using (Ajax.BeginForm("SalerEdit", "UserDatas", new AjaxOptions { UpdateTargetId = "tes", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group pull-right">
+            <div>
+                <input type="submit" value="修改" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+else
+{
+    using (Ajax.BeginForm("Edit", "UserDatas", new AjaxOptions { UpdateTargetId = "returns", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group pull-right">
+            <div>
+                <input type="submit" value="追蹤" class="btn btn-default" />
+            </div>
+        </div>
+    }
+}
+
+@foreach (var item in Model.UserData)
+{
+    <h2>
+        <strong>
+            @Html.DisplayFor(model => item.content)
+        </strong>
+    </h2>
+
+}

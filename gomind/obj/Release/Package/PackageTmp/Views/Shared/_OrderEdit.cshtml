@@ -1,0 +1,67 @@
+﻿@model gomind.Models.Order
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<div class="form-horizontal" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+    @using (Ajax.BeginForm("Edit", "Orders", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "order", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="control-label col-md-2">買家姓名</label>
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.User.UserNickName)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">商品名稱</label>
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => Model.Chat.ProductList.prodlist_name)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">是否付款</label>
+            <div class="col-md-4">
+                @Html.EditorFor(modelItem => Model.pay)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">是否出貨</label>
+            <div class="col-md-4">
+                @Html.EditorFor(modelItem => Model.send)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="儲存" class="btn btn-default" />
+            </div>
+        </div>
+
+    }
+    @using (Ajax.BeginForm("Cancel", "Orders", null, new AjaxOptions { UpdateTargetId = "order", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+    {
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="取消" class="btn btn-default" />
+            </div>
+        </div>
+
+    }
+
+    </div>
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+
+
+
+
+
+

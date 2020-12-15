@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="gomind.Models.Comment_Member" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEBAAAAAAAAAABAAIAIAAAAAEABAAAAAAAAAgAAAgA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.Comment_Product" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.FollowTable" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.FollowUser" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAQAAACAAAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.ProductList" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAiAwQiAAAAAAAAAAAQAMAAgQAAIAQAAAAAQ=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.File" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAwAQAAAAAAAQAAAEAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.UserData" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAARAAAAAAAAAAAAAAIAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.UserFile" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgAAgAQAAAAAAAQAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.SaleSetting" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAAAABgAAAAAAABgAABQAgCAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.Setting" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAIAAAAAAAAAAAAAAAAgAAAAAAAAAEAAAAAAAgA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.Order" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAACAAAAQAABAAAAAAAAEAAEAAkAAAQBAAAAAgA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.One" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.Two" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.Chat" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAAAAAgBAABAAAQACAAAEAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="gomind.Models.ChatMessage" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAQAAIAAAAAA=</HashCode>
+      <FileName>Models\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft JhengHei UI" Size="9" />
+</ClassDiagram>

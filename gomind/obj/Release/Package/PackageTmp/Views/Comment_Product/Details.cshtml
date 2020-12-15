@@ -1,0 +1,37 @@
+﻿@model gomind.Models.Comment_Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment_Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+ 
+   
+        <dt>
+            @Html.DisplayNameFor(model => model.prccont)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prccont)
+        </dd>
+
+  
+        <dt>
+            @Html.DisplayNameFor(model => model.prctime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prctime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.number }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

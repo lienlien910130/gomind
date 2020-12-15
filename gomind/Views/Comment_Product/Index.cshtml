@@ -1,0 +1,43 @@
+﻿@model IEnumerable<gomind.Models.Comment_Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.prccont)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.prctime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.prccont)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.prctime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.number }) |
+            @Html.ActionLink("Details", "Details", new { id=item.number }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.number })
+        </td>
+    </tr>
+}
+
+</table>

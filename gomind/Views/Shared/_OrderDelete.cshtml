@@ -1,0 +1,69 @@
+﻿@model gomind.Models.Order
+
+
+<div>
+ 
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createtime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createtime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.send)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.send)
+        </dd>
+
+    </dl>
+    <br />
+    @using (Ajax.BeginForm("Delete", "Orders", new { id = Model.id } , new AjaxOptions { UpdateTargetId = "order", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="刪除" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    @using (Ajax.BeginForm("Cancel", "Orders", null, new AjaxOptions { UpdateTargetId = "order", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+    {
+        <td>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="取消" class="btn btn-default" />
+                </div>
+            </div>
+        </td>
+    }
+    <br />
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
+
+
+
+

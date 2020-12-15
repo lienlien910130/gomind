@@ -1,0 +1,34 @@
+﻿@model gomind.Models.Two
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Two</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OneId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OneId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwoKind)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwoKind)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

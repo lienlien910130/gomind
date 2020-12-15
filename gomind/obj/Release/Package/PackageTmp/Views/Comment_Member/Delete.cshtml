@@ -1,0 +1,64 @@
+﻿@model gomind.Models.Comment_Member
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Comment_Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tousername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tousername)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.touserid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.touserid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ccont)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ccont)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addtime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addtime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

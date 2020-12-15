@@ -1,0 +1,41 @@
+﻿.wells {
+    margin-top:-20px;
+    text-align:center;
+    cursor:pointer;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 0px !important;
+   
+}
+
+.wells:hover {
+    margin-top:-20px;
+    text-align:center;
+    cursor:pointer;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 0px !important;
+    border-bottom : 2px solid rgba(97, 203, 255, 0.65);
+}
+
+
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.glyphicon { margin-right:5px;}
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }

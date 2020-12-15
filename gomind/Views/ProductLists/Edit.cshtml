@@ -1,0 +1,445 @@
+﻿@model IdentitySample.Models.ProductListEdits
+
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/shop-homepage.css" rel="stylesheet">
+    <link href="~/Content/productcreate.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/procreate.js"></script>
+   <style>
+       .body {
+       font-family:'Microsoft JhengHei UI','Microsoft JhengHei';
+       font-size:x-large;
+       }
+   </style>
+    <script>
+        $(document).ready(function () {
+            $('body').append('<div id="toTop" class="btn btn-info"><span class="glyphicon glyphicon-chevron-up"></span> Top</div>');
+            $(window).scroll(function () {
+                if ($(this).scrollTop() != 0) {
+                    $('#toTop').fadeIn();
+                } else {
+                    $('#toTop').fadeOut();
+                }
+            });
+            $('#toTop').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
+    </script>
+    <style>
+        #toTop {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            display: none;
+        }
+         #halsl {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            font-family:'Microsoft JhengHei UI','Microsoft JhengHei';
+            font-size:large;
+        }
+    </style>
+    <script>
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "/home/getCountries",
+                datatype: "Json",
+                success: function (data) {
+                    $.each(data, function (index, value) {
+                        $('#dropdownOne').append('<option value="' + value.OneId + '">' + value.OneKind + '</option>');
+                    });
+                    $('#dropdownOne').val(@Model.o);
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/home/GetTwo",
+                datatype: "Json",
+                data: { OneId: @Model.o },
+                success: function (data) {
+                    $('#dropdownTwo').empty();
+                    $.each(data, function (index, value) {
+                        $('#dropdownTwo').append('<option value="' + value.Id + '">' + value.TwoKind + '</option>');
+                    });
+                },
+                error: function () {
+                    $('#dropdownTwo').append("");
+                }
+
+            });
+            $('#dropdownOne').change(function () {
+                $('#dropdownTwo').empty();
+                $.ajax({
+                    type: "POST",
+                    url: "/home/GetStatesByCountryId",
+                    datatype: "Json",
+                    data: { OneId: $('#dropdownOne').val() },
+                    success: function (data) {
+                        $.each(data, function (index, value) {
+                            $('#dropdownTwo').append('<option value="' + value.Id + '">' + value.TwoKind + '</option>');
+                        });
+                    },
+                    error: function () {
+                        $('#dropdownTwo').append("");
+                    }
+
+                });
+            });
+        });
+    </script>
+    <script>
+         window.setInterval(function () {
+                 search()
+         }, 2000);
+
+             function search() {
+                 $.getJSON({
+                     type: "GET",
+                     url: "/home/GetChat",
+                     datatype: "Json",
+                     data: { id: '@Session["userid"]' },
+                     success: function (data) {
+                         //$("#halsl").html("");
+                         if (data.length > 0) {
+                             for (x in data) {
+                                 //$("#halsl").html(
+                                 //$("#halsl").html() +
+                                 //'<div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('#halsl').append(
+                                 ' <div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('.chat').click(function () {
+                                         $.ajax({
+                                             url: "/Chats/btnchat",
+                                             type: 'GET',
+                                             data: { id: data[x].ID },
+                                             success: function (result) {
+                                                 window.location = "/Chats/ChatDetail?id=" + data[x].ID;
+
+                                                 //window.open("Chats/ChatDetail?id=" + data[x].ID ,'_blank', "");
+
+                                             }
+                                         });
+                                     });
+                             }
+                         }
+                         else {
+
+                         }
+                         //if (data == "1") {}
+                         //else {
+                         //    var s = data;
+                         //    $('body').append(
+                         //   '<div id="toTopss" class="btn btn-default btn-lg btn-block">你有新訊息</div>');
+                         //    $('#toTopss').click(function () {
+                         //        $.ajax({
+                         //            url: "/Chats/btnchat",
+                         //            type: 'GET',
+                         //            data: { id: data },
+                         //            success: function (result) {
+                         //                window.location = "Chats/ChatDetail?id="+data ;
+                         //            }
+                         //        });
+                         //    });
+                         //}
+
+                     },
+                error: function () {
+
+                     }
+                 });
+             }
+        $(document).ready(function () {
+
+            $('#search').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#cha").click();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.jpg" class="img-responsive" />
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        </div>
+    </div>
+    <hr /><br /><br />
+    @using (Html.BeginForm("Edit", "ProductLists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5" style="border:2px solid black;">
+                        <div class="input-group image-preview pull-right">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span>刪除
+                                </button>
+                                <div class="btn btn-default image-preview-input">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title">選擇照片</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="upload" id="upload" />
+                                </div>
+                            </span>
+                        </div>
+                        <img src="/Files/GetPImage?id=@Model.ProductList.number" id="img1" alt="" style="width:100%;height:200px" /> 
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-5" style="border:2px solid black;">
+                        <div class="input-group image-preview1 pull-right">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default image-preview-clear1" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span>刪除
+                                </button>
+                                <div class="btn btn-default image-preview-input1">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title1">選擇照片</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="upload1" id="upload" />
+                                </div>
+                            </span>
+                        </div>
+                        <img src="/Files/GetImage2?id=@Model.ProductList.number" id="img2" alt="" style="width:100%;height:200px" /> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5" style="border:2px solid black;">
+                        <div class="input-group image-preview2 pull-right">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default image-preview-clear2" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span>刪除
+                                </button>
+                                <div class="btn btn-default image-preview-input2">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title2">選擇照片</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="upload2" id="upload" />
+                                </div>
+                            </span>
+                        </div>
+                
+                          <img src="/Files/GetImage3?id=@Model.ProductList.number" id="img3" alt="" style="width:100%;height:200px" /> 
+           
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="form-group col-md-5" style="border:2px solid black;">
+                        <div class="input-group image-preview3 pull-right">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default image-preview-clear3" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span>刪除
+                                </button>
+                                <div class="btn btn-default image-preview-input3">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title3">選擇照片</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="upload3" id="upload" />
+                                </div>
+                            </span>
+                        </div>
+                          <img src="/Files/GetImage4?id=@Model.ProductList.number" id="img4" alt="" style="width:100%;height:200px" /> 
+                       
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-6"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductList.prodlist_name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ProductList.prodlist_name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductList.count, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ProductList.count, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductList.count, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductList.prodlist_price, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ProductList.prodlist_price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductList.prodlist_status, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("status", (IEnumerable<SelectListItem>)ViewBag.Item, new { @style = "width:200px;", name = "status" })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">分類</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("dropdownOne", new SelectList(string.Empty,"Value", "Text"), "------" ,   new { @style = "width:200px;", name = "onekind" })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3"></label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("dropdownTwo", new SelectList(string.Empty, "Value", "Text"), "------" ,new { @style = "width:200px;", name = "twoknid" })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductList.prodlist_content, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-4">
+                        @Html.TextAreaFor(model => model.ProductList.prodlist_content, new { style = "width: 250px; height: 200px;" })
+                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>   
+        @Html.HiddenFor(model => model.SaleSetting.id)
+        @Html.HiddenFor(model => model.ProductList.number)
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">運費及付款設定</h4> <p class="text-danger"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">*此處更動將會影響到所有商品的運費及付款設定唷</p>
+
+                    <div class="table-responsive"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                            <th></th>
+                            <th>付款方式</th>
+                            <th>運費</th>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SendFace, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.SaleSetting.SendFace)
+                                    </td>
+                                    <td>
+                                        <div class="col-md-offset-4  col-md-8">@Html.LabelFor(model => model.SaleSetting.SendFace, htmlAttributes: new { @class = "control-label " })</div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.SendHome)
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SendHome, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-offset-4  col-md-8">@Html.LabelFor(model => model.SaleSetting.SendHome, htmlAttributes: new { @class = "control-label" })</div>
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.HomeMoney, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.HomeMoney, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.SendSeven)
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SendSeven, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-offset-4  col-md-8">@Html.LabelFor(model => model.SaleSetting.SendSeven, htmlAttributes: new { @class = "control-label" })</div>
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.SevenMoney, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SevenMoney, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.SendFamily)
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SendFamily, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-offset-4  col-md-8">@Html.LabelFor(model => model.SaleSetting.SendFamily, htmlAttributes: new { @class = "control-label" })</div>
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.FamilMoney, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.FamilMoney, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.SendPost)
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.SendPost, "", new { @class = "text-danger" })
+                                    </td>
+                                    <td>
+                                        <div class="col-md-offset-4  col-md-8">@Html.LabelFor(model => model.SaleSetting.SendPost, htmlAttributes: new { @class = "control-label" })</div>
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.SaleSetting.PostMoney, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SaleSetting.PostMoney, "", new { @class = "text-danger" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="儲存" class="btn btn-default" id="save"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'"/>
+            </div>
+        </div>
+
+
+    }
+
+@using (Html.BeginForm("Details", "ProductLists", new { id = Model.ProductList.number }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="取消" class="btn btn-default"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'"/>
+        </div>
+    </div>
+}
+
+    <div id="halsl"></div>
+</body>
+
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
+

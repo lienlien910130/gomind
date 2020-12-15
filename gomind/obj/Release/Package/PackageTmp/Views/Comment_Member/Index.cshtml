@@ -1,0 +1,57 @@
+﻿@model IEnumerable<gomind.Models.Comment_Member>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tousername)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.touserid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ccont)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.score)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.addtime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tousername)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.touserid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ccont)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.score)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.addtime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

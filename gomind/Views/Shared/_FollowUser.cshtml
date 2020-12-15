@@ -1,0 +1,21 @@
+﻿@model IEnumerable<gomind.Models.FollowUser>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-sm-4 col-lg-4 col-md-4"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+        <div class="thumbnail">
+            <a href="@Url.Action("Salers","UserDatas", new { id = item.followuserid })">
+                <img src="/Files/GetImage?id=@item.followuserid" alt="" class="img-circle">
+            </a>
+            <div class="caption text-center">
+                    <h4>
+                        @Html.ActionLink(item.username, "Salers", "UserDatas", new { id = item.followuserid }, null)
+                    </h4>
+            </div>
+</div>
+</div>
+}
+
+
+

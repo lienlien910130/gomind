@@ -1,0 +1,314 @@
+﻿@model IdentitySample.Models.Manage
+@using gomind.Models
+@using Microsoft.AspNet.Identity
+@using IdentitySample.Models
+<script src="~/Scripts/ manageindex.js"></script>
+<script src="~/Scripts/ manageindex.css"></script>
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gomind</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" media="screen" />
+    <link href="~/Content/manageindex.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <link href="~/Content/_Index.css" rel="stylesheet" />
+    <script src="~/Scripts/manageindex.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').append('<div id="toTop" class="btn btn-info"><span class="glyphicon glyphicon-chevron-up"></span> Top</div>');
+            $(window).scroll(function () {
+                if ($(this).scrollTop() != 0) {
+                    $('#toTop').fadeIn();
+                } else {
+                    $('#toTop').fadeOut();
+                }
+            });
+            $('#toTop').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
+
+    </script>
+    <style>
+        #toTop {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #halsl {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            font-family: 'Microsoft JhengHei UI','Microsoft JhengHei';
+            font-size: large;
+        }
+    </style>
+    <script>
+         window.setInterval(function () {
+                 search()
+         }, 2000);
+
+             function search() {
+                 $.getJSON({
+                     type: "GET",
+                     url: "/home/GetChat",
+                     datatype: "Json",
+                     data: { id: '@Session["userid"]' },
+                     success: function (data) {
+                         //$("#halsl").html("");
+                         if (data.length > 0) {
+                             for (x in data) {
+                                 //$("#halsl").html(
+                                 //$("#halsl").html() +
+                                 //'<div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('#halsl').append(
+                                 ' <div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('.chat').click(function () {
+                                         $.ajax({
+                                             url: "/Chats/btnchat",
+                                             type: 'GET',
+                                             data: { id: data[x].ID },
+                                             success: function (result) {
+                                                 window.location = "/Chats/ChatDetail?id=" + data[x].ID;
+
+                                                 //window.open("Chats/ChatDetail?id=" + data[x].ID ,'_blank', "");
+
+                                             }
+                                         });
+                                     });
+                             }
+                         }
+                         else {
+
+                         }
+                         //if (data == "1") {}
+                         //else {
+                         //    var s = data;
+                         //    $('body').append(
+                         //   '<div id="toTopss" class="btn btn-default btn-lg btn-block">你有新訊息</div>');
+                         //    $('#toTopss').click(function () {
+                         //        $.ajax({
+                         //            url: "/Chats/btnchat",
+                         //            type: 'GET',
+                         //            data: { id: data },
+                         //            success: function (result) {
+                         //                window.location = "Chats/ChatDetail?id="+data ;
+                         //            }
+                         //        });
+                         //    });
+                         //}
+
+                     },
+                error: function () {
+
+                     }
+                 });
+             }
+        $(document).ready(function () {
+
+            $('#search').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#cha").click();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.jpg" class="img-responsive" />
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        </div>
+    </div>
+    <br />
+    <hr />
+    <br />
+    <div class="row">
+       <div style="width:200px"></div>
+        @Html.ActionLink("首頁", "Index", "Home", new { style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > <span style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">設定</span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">
+                    <li class="active"><a href="#vtab1" data-toggle="tab">編輯會員資料</a></li>
+                    <li><a href="#vtab5" data-toggle="tab">運費及付款設定</a></li>
+                    <li><a href="#vtab2" data-toggle="tab">更改密碼</a></li>
+                    <li><a href="#vtab8" data-toggle="tab">訂單管理 <b></b>
+                        @if (Model.number == 0) { }
+                        else if (Model.number < 0)
+                        { }
+                        else
+                        { <span class="badge pull-right">@Model.number</span> }
+                       </a>
+                    </li>
+                    <li><a href="#vtab9" data-toggle="tab">評價管理</a></li>
+                    @*<li><a href="#vtab6" data-toggle="tab">喜愛賣家及商品</a></li>
+                    <li><a href="#vtab7" data-toggle="tab">收件匣 <b></b>
+                        @if (Model.talk == 0) { }
+                        else if (Model.talk < 0) {  }
+                        else
+                        { <span class="badge pull-right">@Model.talk</span> }
+                        </a></li>*@
+                </ul>
+            </div>
+            <div class="col-sm-9 col">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="vtab1">
+                        <h3 style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">會員資料</h3>
+                        <hr />
+                        <div id="userdata">
+                            @Html.Partial("_ManageIndex", Model.IndexViewModel)
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade form-horizontal" id="vtab2">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">更改密碼</h3>
+                        <hr />
+                        @Html.Partial("_ChangePassword", Model.ChangePasswordViewModel)
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade in" id="vtab5">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">運費及付款設定</h3>
+                        <hr />
+                        <div id="returns">
+                            @Html.Partial("_SaleSettingIndex", Model.SaleSetting)
+                        </div>
+                    </div>
+                    @*<div role="tabpanel" class="tab-pane fade in" id="vtab6">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">追蹤賣家及商品</h3>
+                        <hr />
+                        <div class="row">
+                            <div>
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#商品" aria-controls="商品" role="tab" data-toggle="tab">商品</a></li>
+                                    <li role="presentation"><a href="#賣家" aria-controls="賣家" role="tab" data-toggle="tab">賣家</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="商品">
+                                        <br />
+                                        @Html.Partial("_ProductFollow", Model.FollowTable)
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="賣家">
+                                        <br />
+                                        @Html.Partial("_FollowUser", Model.FollowUser)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div role="tabpanel" class="tab-pane fade in" id="vtab8">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">訂單管理</h3>
+                        <hr />
+                        <div class="row">
+                            <div>
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#已成立訂單" aria-controls="已成立訂單" role="tab" data-toggle="tab">已成立訂單</a></li>
+                                    <li role="presentation"><a href="#購買紀錄" aria-controls="購買紀錄" role="tab" data-toggle="tab">購買紀錄</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="已成立訂單">
+                                        <br />
+                                        <div id="order">
+                                            @Html.Partial("_OrderList", Model.Order)
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="購買紀錄">
+                                        <br />
+                                        @Html.Partial("_BuyOrder", Model.BuyOrder)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*<div role="tabpanel" class="tab-pane fade in" id="vtab7">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">收件匣</h3>
+                        <hr />
+                        @Html.Partial("_ChatMe", Model.Chat)
+                    </div>*@
+
+                    <div role="tabpanel" class="tab-pane fade in" id="vtab9">
+                        <h3  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'">評價管理</h3>
+                        <hr />
+                        <div class="row">
+                            <div>
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#收到的評價" aria-controls="收到的評價" role="tab" data-toggle="tab">收到的評價</a></li>
+                                    <li role="presentation"><a href="#給出的評價" aria-controls="給出的評價" role="tab" data-toggle="tab">給出的評價</a></li>
+
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="收到的評價">
+                                        <br />
+                                      @Html.Partial("_GetComment", Model.GetComment)
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="給出的評價">
+                                        <br />
+                                        <div id="big">
+                                            @Html.Partial("_GiveComment", Model.GiveComment)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+    <div id="halsl"></div>
+    <br />
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["message"]));
+        alert(message);
+        </script>
+    }
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")

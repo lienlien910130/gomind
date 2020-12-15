@@ -1,0 +1,53 @@
+﻿@model IEnumerable<gomind.Models.Comment_Member>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/img/logo.jpg" class="img-responsive" />
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4"></div>
+    </div>
+</div>
+<hr />
+
+<br />
+<div id="sk">
+    <div class="table-responsive text-center" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+
+        <table id="mytable" class="table table-bordred table-striped">
+            <thead>
+            <th class="col-lg-3 text-center">暱稱</th>
+            <th class="col-lg-3 text-center">分數</th>
+        <th class="col-lg-3 text-center">內容</th>
+        <th class="col-lg-3 text-center">時間</th>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserNickName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.score)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ccont)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.addtime)
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+

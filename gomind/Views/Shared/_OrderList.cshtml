@@ -1,0 +1,56 @@
+﻿@model IEnumerable<gomind.Models.Order>
+
+
+<div id="editorder">
+</div>
+<div class="table-responsive text-center"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+    <table id="mytable" class="table table-bordred table-striped">
+
+        <thead>
+        <th class="col-lg-2 text-center">買家名稱</th>
+        <th class="col-lg-3 text-center">商品名稱</th>
+        <th class="col-lg-1 text-center">付款</th>
+        <th class="col-lg-1 text-center">出貨</th>
+        <th class="col-lg-5 text-center"></th>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.Chat.ProductList.prodlist_name , "Details", "ProductLists" ,  new { id = item.Chat.ProductList.number } ,null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.pay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.send)
+                        </td>
+                        <td>
+                            @Ajax.ActionLink("修改訂單", "Edit", "Orders", new { id = item.id }, new AjaxOptions { UpdateTargetId = "editorder", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                            |
+                            @*@Ajax.ActionLink("刪除訂單", "Delete", "Orders", new { id = item.id }, new AjaxOptions { UpdateTargetId = item.id.ToString(), InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })*@
+
+                            @Html.ActionLink("刪除訂單", "De", "Orders", new { id = item.id }, new { onclick = "return confirm('確定要刪除此訂單嗎?');" })
+                            |
+                            @if (item.givco == false)
+                            {
+                                @Ajax.ActionLink("評論買家", "Create", "Comment_Member", new { id = item.buyerid, oid = item.id } , new AjaxOptions { UpdateTargetId = "editorder", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                            }
+                            else
+                            {
+                                <strong>已評論</strong>
+                            }
+                        </td>
+                    </tr>
+        }
+      </tbody>
+    </table>
+</div>
+
+@Scripts.Render("~/Scripts/JavaScript.js")
+
+

@@ -1,0 +1,58 @@
+﻿@model gomind.Models.Comment_Member
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment_Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tousername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tousername)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.touserid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.touserid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ccont)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ccont)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.addtime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.addtime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

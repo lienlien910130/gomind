@@ -1,0 +1,44 @@
+﻿@model gomind.Models.Comment_Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Comment_Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+  
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prccont)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prccont)
+        </dd>
+
+     
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prctime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prctime)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

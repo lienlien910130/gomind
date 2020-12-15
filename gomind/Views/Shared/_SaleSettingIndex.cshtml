@@ -1,0 +1,119 @@
+﻿@model IEnumerable<gomind.Models.SaleSetting>
+@foreach (var item in Model)
+{
+    using (Ajax.BeginForm("Edit", "SaleSettings", new { id = item.id }, new AjaxOptions { UpdateTargetId = "returns", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => item.id)
+
+<div class="table-responsive">
+    <table id="mytable" class="table table-bordred table-striped  text-center" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+        <thead>
+        <th class="col-lg-4 text-center"><strong>開放</strong></th>
+        <th class="col-lg-4 text-center"><strong>付款方式</strong></th>
+        <th class="col-lg-4 text-center"><strong>運費</strong></th>
+        </thead>
+        <tbody>
+          
+            <tr class="text-center">
+                <td class="text-center">
+                    <div class="form-group">
+                        <div class="text-center">
+                            @Html.ValidationMessageFor(model => item.SendFace, "", new { @class = "text-danger" })
+                            @Html.DisplayFor(model => item.SendFace, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.LabelFor(model => item.SendFace, htmlAttributes: new { @class = "control-label " })
+                </td>
+                <td></td>
+            </tr>
+            <tr class="text-center">
+                <td class="text-center">
+                    <div class="form-group">
+                        <div class="text-center">
+                            @Html.DisplayFor(model => item.SendHome, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => item.SendHome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.LabelFor(model => item.SendHome, htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.HomeMoney, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => item.HomeMoney, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td class="text-center">
+                    <div class="form-group">
+                        <div class="text-center">
+                            @Html.DisplayFor(model => item.SendSeven, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => item.SendSeven, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.LabelFor(model => item.SendSeven, htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.SevenMoney, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => item.SevenMoney, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td class="text-center">
+                    <div class="form-group">
+                        <div class="text-center">
+                            @Html.DisplayFor(model => item.SendFamily, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => item.SendFamily, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.LabelFor(model => item.SendFamily, htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.FamilMoney, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => item.FamilMoney, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td class="text-center">
+                    <div class="form-group">
+                        <div class="text-center">
+                            @Html.DisplayFor(model => item.SendPost, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => item.SendPost, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    @Html.LabelFor(model => item.SendPost, htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PostMoney, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => item.PostMoney, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br />
+     <p class="text-danger" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">*此處更動將會影響到所有商品的運費及付款設定</p>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-2">
+            <input type="submit" value="編輯" class="btn btn-default" id="salesettingindex"/>
+        </div>
+    </div>
+</div>
+    }
+}
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")

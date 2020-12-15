@@ -1,0 +1,25 @@
+﻿@model IEnumerable<gomind.Models.Chat>
+
+
+@foreach (var item in Model)
+{
+    if (item.ChatMessage.Count() > 0 )
+    {
+    <div class="col-sm-4 col-lg-4 col-md-4"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+        <div class="thumbnail">
+            <a href="@Url.Action("ChatDetail","Chats", new { id = item.ID })">
+                <img src="/Files/GetPImage?id=@item.ProductList.number" alt="" style="height:300px">
+            </a>
+            <div class="caption text-center">
+                <h4>
+                    @Html.ActionLink(item.ProductList.prodlist_name, "Details", "ProductLists", new { id =item.ProductList.number }, null)
+                    <br />
+                    @Html.ActionLink(item.UserName, "Salers", "UserDatas", new { id = item.User.Id }, null)
+                </h4>
+            </div>
+        </div>
+    </div>
+    }
+}
+
+

@@ -1,0 +1,441 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    @Scripts.Render("~/Scripts/JavaScript.js")
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+   
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+       
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="hidden-lg hidden-md hidden-sm">
+               @using (Ajax.BeginForm("Search", "ProductLists", new AjaxOptions { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+               {
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+               }
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "nav navbar-nav navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li class="dropdown">
+                            <a href="@Url.Action("Index", "Manage")" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user fa-fw" aria-hidden="true"></i> 會員
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                  @if (Request.IsAuthenticated && User.IsInRole("project10"))
+                                    {
+                                
+                                <li>
+                                    <a href="@Url.Action("Index", "RolesAdmin")">
+                                        <i class="fa fa-cog fa-fw" aria-hidden="true"></i> 權限管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "UsersAdmin")">
+                                        <i class="fa fa-users fa-fw" aria-hidden="true"></i> 使用者管理
+                                    </a>
+                                </li>
+
+                                 }
+                                <li>
+                                    <a href="@Url.Action("Saler", "UserDatas")">
+                                        <i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> 我的賣場
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("My", "FollowTables")">
+                                        <i class="fa fa-heart fa-fw" aria-hidden="true"></i> 我的最愛
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("My", "Chats")">
+                                        <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> 收件匣
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "Manage")">
+                                        <i class="fa fa-cog fa-fw" aria-hidden="true"></i> 設定
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i> 登出
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Home")">
+                                <i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> 買東西
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Create", "ProductLists")">
+                                <i class="fa fa-plus fa-fw" aria-hidden="true"></i> 賣東西
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Register", "Account")" , routeValues null, htmlAttributes new { id="registerLink" }>
+                            <i class="fa fa-user fa-fw" aria-hidden="true"></i> 註冊
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Login", "Account")" ,routeValues null, htmlAttributes new { id="loginLink" }>
+                            <i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> 登入
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fa fa-shopping-cart fa-fw" aria-hidden="true"></i> 買東西
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Create", "ProductList")">
+                            <i class="fa fa-plus fa-fw" aria-hidden="true"></i> 賣東西
+                        </a>
+                    </li>
+                    }
+
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse hidden-lg hidden-md" id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav navbar-left hidden-lg hidden-md hidden-sm">
+                <li class="dropdown">
+                     <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-male fa-fw" aria-hidden="true"></i> 衣著服飾
+                                <b class="caret"></b>
+                     </a>
+                     <ul class="dropdown-menu">
+                         <li>
+                             @Ajax.ActionLink("女裝", "SearchKind", "ProductLists", new { id = 1 }, new AjaxOptions
+                       {
+                           UpdateTargetId = "productchange",
+                           InsertionMode = InsertionMode.Replace,
+                           HttpMethod = "Post"
+                       })
+                         </li>
+                         <li class="">
+                             @Ajax.ActionLink("男裝", "SearchKind", "ProductLists", new { id = 2 }, new AjaxOptions
+                                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                         </li>
+
+                       </ul>
+                   </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i> 鞋包配件
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Ajax.ActionLink("包包", "SearchKind", "ProductLists", new { id = 3 }, new AjaxOptions
+                                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                        <li>
+                            @Ajax.ActionLink("女鞋", "SearchKind", "ProductLists", new { id = 4 }, new AjaxOptions
+                               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("男鞋", "SearchKind", "ProductLists", new { id = 5 }, new AjaxOptions
+                           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("衣服配件", "SearchKind", "ProductLists", new { id = 6 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("飾品配件", "SearchKind", "ProductLists", new { id = 7 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-book fa-fw" aria-hidden="true"></i> 圖書文具
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Ajax.ActionLink("書籍", "SearchKind", "ProductLists", new { id = 8 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                        <li>
+                            @Ajax.ActionLink("文具", "SearchKind", "ProductLists", new { id = 9 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-mobile fa-fw" aria-hidden="true"></i> 3C 家電
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Ajax.ActionLink("3C產品", "SearchKind", "ProductLists", new { id = 10 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("電腦周邊產品", "SearchKind", "ProductLists", new { id = 11 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("手機周邊產品", "SearchKind", "ProductLists", new { id = 12 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("攝影周邊產品", "SearchKind", "ProductLists", new { id = 13 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("家電", "SearchKind", "ProductLists", new { id = 14 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-home fa-fw" aria-hidden="true"></i> 居家生活
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Ajax.ActionLink("居家用品", "SearchKind", "ProductLists", new { id = 15 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                        <li>
+                            @Ajax.ActionLink("家具織品", "SearchKind", "ProductLists", new { id = 16 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("清潔用品", "SearchKind", "ProductLists", new { id = 17 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("餐具", "SearchKind", "ProductLists", new { id = 18 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("廚具", "SearchKind", "ProductLists", new { id = 19 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("園藝", "SearchKind", "ProductLists", new { id = 20 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-heart fa-fw" aria-hidden="true"></i> 美妝保養
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="">
+                            @Ajax.ActionLink("臉部清潔保養", "SearchKind", "ProductLists", new { id = 21 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                        <li class="">
+                            @Ajax.ActionLink("眼唇保養", "SearchKind", "ProductLists", new { id = 22 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("彩妝美甲", "SearchKind", "ProductLists", new { id = 23 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("香水", "SearchKind", "ProductLists", new { id = 24 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("身體清潔保養", "SearchKind", "ProductLists", new { id = 25 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("美齒潔牙", "SearchKind", "ProductLists", new { id = 26 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("頭髮清潔護理", "SearchKind", "ProductLists", new { id = 27 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-cutlery fa-fw" aria-hidden="true"></i> 品味美食
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="">
+                            @Ajax.ActionLink("甜品零食", "SearchKind", "ProductLists", new { id = 28 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("沖泡飲品", "SearchKind", "ProductLists", new { id = 29 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("生鮮美食", "SearchKind", "ProductLists", new { id = 30 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("保健食品", "SearchKind", "ProductLists", new { id = 31 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-odnoklassniki fa-fw" aria-hidden="true"></i> 孕婦嬰兒
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="">
+                            @Ajax.ActionLink("孕婦服飾", "SearchKind", "ProductLists", new { id = 32 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("嬰兒服飾", "SearchKind", "ProductLists", new { id = 33 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("童鞋", "SearchKind", "ProductLists", new { id = 34 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("其他", "SearchKind", "ProductLists", new { id = 35 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-paw fa-fw" aria-hidden="true"></i> 寵物用品
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="">
+                            @Ajax.ActionLink("項圈鍊子吊牌", "SearchKind", "ProductLists", new { id = 36 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("寵物衣", "SearchKind", "ProductLists", new { id = 37 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("床墊", "SearchKind", "ProductLists", new { id = 38 }, new AjaxOptions
+               { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("清潔用品", "SearchKind", "ProductLists", new { id = 39 }, new AjaxOptions
+           { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("玩具", "SearchKind", "ProductLists", new { id = 40 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("餐具", "SearchKind", "ProductLists", new { id = 41 }, new AjaxOptions
+       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" , routeValues null, htmlAttributes new { title="Manage" }, class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-car fa-fw" aria-hidden="true"></i> 汽機車精品
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="">
+                            @Ajax.ActionLink("機車", "SearchKind", "ProductLists", new { id = 42 }, new AjaxOptions
+                       { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                        <li class="">
+                            @Ajax.ActionLink("汽車", "SearchKind", "ProductLists", new { id = 43 }, new AjaxOptions
+                   { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+  
+        </div>
+
+
+
+    </nav>
+
+
+    <div class="container body-content">
+
+        @RenderBody()
+
+
+    </div>
+ 
+  
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")

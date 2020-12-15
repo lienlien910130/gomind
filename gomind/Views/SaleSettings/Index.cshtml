@@ -1,0 +1,87 @@
+﻿@model IEnumerable<gomind.Models.SaleSetting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SendFace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendATM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendHome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendSeven)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendFamily)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendPost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SevenMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FamilMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostMoney)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendFace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendATM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendHome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendSeven)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendFamily)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendPost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SevenMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FamilMoney)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostMoney)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

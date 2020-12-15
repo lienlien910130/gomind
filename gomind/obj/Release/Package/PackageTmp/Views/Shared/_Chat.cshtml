@@ -1,0 +1,20 @@
+﻿@model IdentitySample.Models.ChatIndex
+
+
+@Html.Partial("_ChatMessage", Model.ChatMessage)
+
+@using (Ajax.BeginForm("Create", "Chats", new { id = Model.Chat.toUserId }, new AjaxOptions { UpdateTargetId = "chatmessage", InsertionMode = InsertionMode.Replace, HttpMethod = "Post", OnSuccess = "OnSuccess" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden(Model.Chat.toUserId)
+
+    <div class="form-horizontal">
+        <input type="text" name="message" id="message" class="form-control" placeholder="輸入內容" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send" class="btn btn-default" id="send" />
+            </div>
+        </div>
+    </div>
+
+}

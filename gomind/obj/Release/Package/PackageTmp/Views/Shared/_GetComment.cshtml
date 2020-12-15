@@ -1,0 +1,45 @@
+﻿@model IEnumerable<gomind.Models.Comment_Member>
+
+
+<div id="editcomm">
+</div>
+<div class="table-responsive text-center" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+    <table id="mytable" class="table table-bordred table-striped">
+
+        <thead>
+        <th class="col-lg-2 text-center">會員</th>
+        <th class="col-lg-3 text-center">商品名稱</th>
+        <th class="col-lg-2 text-center">分數</th>
+        <th class="col-lg-3 text-center">評論內容</th>
+        <th class="col-lg-2 text-center">時間</th>
+    
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserNickName)
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.Order.Chat.ProductList.prodlist_name, "Details", "ProductLists", new { id = item.Order.Chat.ProductList.number }, null)
+               
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.score)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ccont)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.addtime)
+                    </td>
+                  
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@Scripts.Render("~/Scripts/JavaScript.js")

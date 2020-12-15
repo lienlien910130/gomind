@@ -1,0 +1,538 @@
+﻿@model IdentitySample.Models.ProductListDetails
+
+<link href="~/Content/detail.css" rel="stylesheet" />
+<script src="~/Scripts/detail.js"></script>
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" media="screen" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/detail.js"></script>
+    <link href="~/Content/Comment_Productlist.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('body').append('<div id="toTop" class="btn btn-info"><span class="glyphicon glyphicon-chevron-up"></span> Back to Top</div>');
+            $(window).scroll(function () {
+                if ($(this).scrollTop() != 0) {
+                    $('#toTop').fadeIn();
+                } else {
+                    $('#toTop').fadeOut();
+                }
+            });
+            $('#toTop').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
+    </script>
+    <script>
+         window.setInterval(function () {
+                 search()
+         }, 1000);
+
+             function search() {
+                 $.getJSON({
+                     type: "GET",
+                     url: "/home/GetChat",
+                     datatype: "Json",
+                     data: { id: '@Session["userid"]' },
+                     success: function (data) {
+                         //$("#halsl").html("");
+                         if (data.length > 0) {
+                             for (x in data) {
+                                 //$("#halsl").html(
+                                 //$("#halsl").html() +
+                                 //'<div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('#halsl').append(
+                                 ' <div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('.chat').click(function () {
+                                         $.ajax({
+                                             url: "/Chats/btnchat",
+                                             type: 'GET',
+                                             data: { id: data[x].ID },
+                                             success: function (result) {
+                                                 window.location = "/Chats/ChatDetail?id=" + data[x].ID;
+                                                 //window.open("Chats/ChatDetail?id=" + data[x].ID ,'_blank', "");
+
+                                             }
+                                         });
+                                     });
+                             }
+                         }
+                         else {
+
+                         }
+                     
+
+                     },
+                error: function () {
+
+                     }
+                 });
+             }
+        $(document).ready(function () {
+
+            $('#search').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#cha").click();
+                }
+            });
+        });
+    </script>
+    <style>
+        #toTop {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            display: none;
+        }
+         #halsl {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            font-family:'Microsoft JhengHei UI','Microsoft JhengHei';
+            font-size:large;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.jpg" class="img-responsive" />
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div style="width:200px"></div>
+        @Html.ActionLink("首頁", "Index", "Home", new { style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > @Html.ActionLink(Model.ProductList.onekind, "Detailkindo", "ProductLists", new { id = Model.ProductList.onekind }, new {  style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > @Html.ActionLink(Model.ProductList.twokind, "Detailkindt", "ProductLists", new { id = Model.ProductList.twokind },new { style = "font-family: 'Microsoft JhengHei UI','Microsoft JhengHei'" }) > <span style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei'"> @Model.ProductList.prodlist_name </span>
+    </div>
+    <br />
+    <div class="container">
+        <div id="main_area">
+            <div class="row">
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12" id="slider">
+                    <div class="row">
+                        <div class="col-sm-6" id="carousel-bounding-box">
+                            <div class="carousel slide" id="myCarousel">
+                                <div class="carousel-inner">
+                                    <div class="active item" data-slide-number="0">
+                                        <img src="/Files/GetPImage?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                    </div>
+                                   @foreach (var item in Model.File) { 
+
+                                      if (item.number==2)
+                                      {
+                                         <div class="item" data-slide-number="1">
+                                             <img src="/Files/GetImage2?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                         </div>
+                                      }
+                                      if (item.number==3)
+                                      {
+                                         <div class="item" data-slide-number="2">
+                                             <img src="/Files/GetImage3?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                         </div>
+                                      }
+                                      if (item.number==4)
+                                      {
+                                         <div class="item" data-slide-number="3">
+                                             <img src="/Files/GetImage4?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                          </div>
+                                      }
+                                   }
+                                  
+                                </div>
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6" id="carousel-text"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+                            <br />
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.prodlist_name, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => model.ProductList.prodlist_name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.plistsale_mnumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.ActionLink(Model.ProductList.plistsale_mnumber, "Salers", "UserDatas", new { id = Model.ProductList.userid, @class = "form-control" }, null)
+                                        @Html.ValidationMessageFor(model => model.ProductList.plistsale_mnumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.count, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => model.ProductList.count, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductList.count, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.prodlist_price, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => model.ProductList.prodlist_price, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_price, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.prodlist_status, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => model.ProductList.prodlist_status, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductList.prodlist_status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductList.onekind, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => model.ProductList.onekind, new { htmlAttributes = new { @class = "form-control" } }) <strong> / </strong>
+                                        @Html.DisplayFor(model => model.ProductList.twokind, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                @if (Model.IsOrder == true)
+                                {
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3"></label>
+                                        <div class="col-md-4">
+                                            <strong><h4 class="text-danger">商品已售出</h4></strong>
+                                        </div>
+                                    </div>
+                                   
+                                }
+                                
+
+                            
+                            </div>
+                            <br /><br />
+                     
+                            <br />
+                                <div id="followchange">
+                                    <div class="col-lg-1 col-md-1"></div>
+                                        @if (Request.IsAuthenticated)
+                                        {
+
+                                            if (Model.Follow == false)
+                                            {
+
+                                                if (Model.isUser == true)
+                                                {
+                                                    using (Html.BeginForm("Edit", "ProductLists", new { id = Model.ProductList.number }, FormMethod.Get))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                        <div class="form-group">
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <input type="submit" value="編輯商品" class="btn btn-default bottom" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    using (Html.BeginForm("Chats", "Chats", new { id = Model.ProductList.User.Id, pid = Model.ProductList.number }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="form-group">
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <input type="submit" value="查看訊息" class="btn btn-default bottom" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    using (Html.BeginForm("Delete", "ProductLists", new { id = Model.ProductList.number }))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="form-group">
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <input type="submit" value="刪除商品" class="btn btn-default bottom" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    using (Html.BeginForm("AddProductFollow", "ProductLists", new { id = Model.ProductList.number }))
+                                                    {
+                                                        <div class="form-group">
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <input type="submit" value='@Html.DisplayFor(model => model.ProductList.prodlist_followtimes) 讚' class="btn btn-default bottom" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    using (Html.BeginForm("ChatIndex", "Chats", new { id = Model.ProductList.User.Id, pid = Model.ProductList.number }))
+                                                    {
+                                                        <div class="form-group">
+                                                            <div class="col-lg-2 col-md-2">
+                                                                <input type="submit" value="聯絡賣家" class="btn btn-default bottom" />
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                using (Html.BeginForm("RemoveProductFollow", "ProductLists", new { id = Model.ProductList.number }))
+                                                {
+                                                    <div class="form-group">
+                                                        <div class="col-lg-2 col-md-2">
+                                                            <input type="submit" value='@Html.DisplayFor(model => model.ProductList.prodlist_followtimes) 取消關注' class="btn btn-default bottom"/>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                using (Html.BeginForm("ChatIndex", "Chats", new { id = Model.ProductList.User.Id, pid = Model.ProductList.number }))
+                                                {
+                                                    <div class="form-group">
+                                                        <div class="col-lg-2 col-md-2">
+                                                            <input type="submit" value="聯絡賣家" class="btn btn-default bottom"/>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            using (Html.BeginForm("BeforeLogin", "ProductLists", new { id = Model.ProductList.number }))
+                                            {
+                                                <div class="form-group">
+                                                    <div class="col-lg-2 col-md-2">
+                                                        <input type="submit" value="讚" class="btn btn-default bottom"/>
+                                                    </div>
+                                                </div>
+                                            }
+                                            using (Html.BeginForm("ChatIndex", "Chats", new { id = Model.ProductList.User.Id, pid = Model.ProductList.number }))
+                                            {
+                                                <div class="form-group">
+                                                    <div class="col-lg-2 col-md-2">
+                                                        <input type="submit" value="聯絡賣家" class="btn btn-default bottom"/>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row form-horizontal" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#圖片" aria-controls="圖片" role="tab" data-toggle="tab">商品介紹</a></li>
+                <li role="presentation"><a href="#運費" aria-controls="運費" role="tab" data-toggle="tab">商品運費</a></li>
+                <li role="presentation"><a href="#評論" aria-controls="評論" role="tab" data-toggle="tab">商品評論</a></li>
+            </ul>
+            <div class="tab-content" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+                <div role="tabpanel" class="tab-pane active" id="圖片">
+                    <br />
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="active item" data-slide-number="0">
+                            <img src="/Files/GetPImage?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                        </div>
+                        <br /><br />
+                        @foreach (var item in Model.File)
+                        {
+                            if (item.number == 2)
+                            {
+                                <div class="item" data-slide-number="1">
+                                    <img src="/Files/GetImage2?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                </div>                        <br /><br />
+                            }
+
+                            if (item.number == 3)
+                            {
+                                <div class="item" data-slide-number="2">
+                                    <img src="/Files/GetImage3?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                </div>                        <br /><br />
+                            }
+
+                            if (item.number == 4)
+                            {
+                                <div class="item" data-slide-number="3">
+                                    <img src="/Files/GetImage4?id=@Model.ProductList.number" style="width:100%;height:500px;">
+                                </div>                        <br /><br />
+                            }
+                        }
+
+                        @Html.DisplayFor(model => model.ProductList.prodlist_content, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="運費">
+                    <br />
+                    @foreach (var item in Model.SaleSetting)
+                    {
+                        <div class="form-horizontal">
+                            @if (item.SendFace == true)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => item.SendFace, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+
+                                    </div>
+                                </div>
+                            }
+
+                            @if (item.SendHome == true)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => item.SendHome, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => item.HomeMoney, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                            }
+                            @if (item.SendPost == true)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => item.SendPost, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => item.PostMoney, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                            }
+                            @if (item.SendSeven == true)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => item.SendSeven, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => item.SevenMoney, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                            }
+                            @if (item.SendFamily == true)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => item.SendFamily, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DisplayFor(model => item.FamilMoney, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    }
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="評論">
+                    <br />
+
+                    @using (Html.BeginForm("Create", "Comment_Product", new { id = Model.ProductList.number }))
+                   {
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Create_Comment.prccont, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Create_Comment.prccont, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Create_Comment.prccont, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="評論" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                   }
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <small class="pull-right">@Model.Comment_Product.Count()</small>
+                                </div>
+                                <div class="comments-list">
+                                    @foreach (var item in Model.Comment_Product)
+                                    {
+
+                                    <div class="media">
+                                        <p class="pull-right"><small>@item.prctime</small></p>
+                                        <a class="media-left" href="#">
+                                            @foreach (var i in item.User.userFile)
+                                                {
+                                                <img class="img-responsive user-photo" src="/Files/GetImage?id=@i.User.Id">
+                                                }
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading user_name">
+                                                <strong>
+                                                    @Html.ActionLink(item.User.UserNickName, "Salers", "UserDatas", new { id = item.User.Id }, null)
+                                                </strong>
+                                            </h4>
+                                            @Html.DisplayFor(modelItem => item.prccont)
+
+                                        </div>
+                                    </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div><div id="halsl"></div>
+    @if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        var message = @Html.Raw(Json.Encode(TempData["message"]));
+        alert(message);
+        </script>
+    }
+</body>
+</html>

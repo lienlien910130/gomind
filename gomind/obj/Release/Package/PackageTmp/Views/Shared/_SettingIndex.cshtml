@@ -1,0 +1,38 @@
+﻿@model IEnumerable<gomind.Models.Setting>
+
+
+
+@foreach (var item in Model)
+{
+    using (Ajax.BeginForm("Edit", "Settings",  new { id = item.id } , new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "setting", HttpMethod = "Get" }))
+    {
+
+ 
+   
+    <div class="form-group">
+        @Html.LabelFor(model => item.NewOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => item.NewOrder, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => item.NewOrder, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => item.NewTalk, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => item.NewTalk, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => item.NewTalk, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="編輯" class="btn btn-default" />
+        </div>
+    </div>
+    }
+
+}
+

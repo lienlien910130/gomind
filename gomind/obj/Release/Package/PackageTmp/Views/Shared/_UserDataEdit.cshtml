@@ -1,0 +1,94 @@
+﻿@model IdentitySample.Models.IndexViewModel
+
+<link href="~/Content/_UserDataEdit.css" rel="stylesheet" />
+<script src="~/Scripts/_UserDataEdit.js"></script>
+
+<div id="display">
+    <div class="form-horizontal" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+        @using (Html.BeginForm("Edit", "UserDatas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+               <label class="control-label col-md-2">大頭貼</label>
+
+                <div class="col-md-6">
+                    <div class="input-group image-preview">
+                        <input type="text" class="form-control image-preview-filename" disabled="disabled">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                <span class="glyphicon glyphicon-remove"></span> Clear
+                            </button>
+                            <div class="btn btn-default image-preview-input">
+                                <span class="glyphicon glyphicon-folder-open"></span>
+                                <span class="image-preview-input-title">Browse</span>
+                                <input type="file" accept="image/png, image/jpeg, image/gif" name="upload" id="upload" />
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Accout, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Accout, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Accout, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nickname, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.Nickname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nickname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                </div>
+            </div>
+       
+            <div class="form-group">
+                @Html.LabelFor(model => model.addtime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DisplayFor(model => model.addtime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.addtime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="儲存" class="btn btn-default" />
+                </div>
+            </div>
+        }
+        @*@using (Ajax.BeginForm("Cancel", "UserDatas", new { @class = "form-horizontal", role = "form" }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "userdata", HttpMethod = "Get" }))
+        {*@
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="取消" class="btn btn-default" id="editcancel"/>
+                </div>
+            </div>
+        @*}*@
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
+@Scripts.Render("~/Scripts/JavaScript.js")
+
+

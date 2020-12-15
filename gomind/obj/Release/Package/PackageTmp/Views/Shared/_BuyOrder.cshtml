@@ -1,0 +1,51 @@
+﻿
+@model IEnumerable<gomind.Models.Order>
+
+
+<div id="comm">
+</div>
+<div class="table-responsive text-center" style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+    <table id="mytable" class="table table-bordred table-striped">
+
+        <thead>
+        <th class="col-lg-2 text-center">賣家名稱</th>
+        <th class="col-lg-3 text-center">商品名稱</th>
+        <th class="col-lg-1 text-center">付款</th>
+        <th class="col-lg-1 text-center">出貨</th>
+        <th class="col-lg-5 text-center"></th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserNickName)
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.Chat.ProductList.prodlist_name, "Details", "ProductLists", new { id = item.Chat.ProductList.number }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.send)
+                    </td>
+                    <td>
+                        @if (item.getco == false)
+                        {
+                            @Ajax.ActionLink("評論賣家", "Createto", "Comment_Member", new { id = item.User.Id, oid = item.id }, new AjaxOptions { UpdateTargetId = "comm", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+                        }
+                        else
+                        {
+                            <strong>已評論</strong>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IdentitySample.Models.ProductListComment>
+
+
+@using (Ajax.BeginForm("Create", "Comment_Product", new { id = Model }, new AjaxOptions { UpdateTargetId = "createcomment", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+{
+    
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal"  style="font-family:'Microsoft JhengHei UI','Microsoft JhengHei';font-size:larger">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Create_Comment.prcscore, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Create_Comment.prcscore, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Create_Comment.prcscore, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Create_Comment.prccont, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Create_Comment.prccont, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Create_Comment.prccont, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="評論" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.snumber)
+            </td>
+            <td>
+                @Html.ActionLink(item.bnumbername, "Salers", "UserDatas", new { id = item.bnumberid }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prccont)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prcscore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prctime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.number }) |
+                @Html.ActionLink("Details", "Details", new { id = item.number }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.number })
+            </td>
+        </tr>
+    }
+
+</table>
+

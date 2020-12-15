@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0AD9EC31-07BB-48B4-A5C7-CC8FFF16DFF7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>gomind</RootNamespace>
+    <AssemblyName>gomind</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/cfc601da-389b-433a-9b31-ceb8de554acc/resourcegroups/testGroup/providers/microsoft.insights/components/gomind</ApplicationInsightsResourceId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChatMessagesController.cs" />
+    <Compile Include="Controllers\ChatsController.cs" />
+    <Compile Include="Controllers\Comment_MemberController.cs" />
+    <Compile Include="Controllers\Comment_ProductController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
+    <Compile Include="Controllers\FollowTablesController.cs" />
+    <Compile Include="Controllers\FollowUsersController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OneController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductListsController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\SaleSettingsController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\TwoesController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\UserDatasController.cs" />
+    <Compile Include="Controllers\UserFilesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250533464_one.cs" />
+    <Compile Include="Migrations\201610250533464_one.Designer.cs">
+      <DependentUpon>201610250533464_one.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250553346_one1.cs" />
+    <Compile Include="Migrations\201610250553346_one1.Designer.cs">
+      <DependentUpon>201610250553346_one1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250559065_one2.cs" />
+    <Compile Include="Migrations\201610250559065_one2.Designer.cs">
+      <DependentUpon>201610250559065_one2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250600162_one3.cs" />
+    <Compile Include="Migrations\201610250600162_one3.Designer.cs">
+      <DependentUpon>201610250600162_one3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250649156_one4.cs" />
+    <Compile Include="Migrations\201610250649156_one4.Designer.cs">
+      <DependentUpon>201610250649156_one4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250652126_one5.cs" />
+    <Compile Include="Migrations\201610250652126_one5.Designer.cs">
+      <DependentUpon>201610250652126_one5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610271649214_one6.cs" />
+    <Compile Include="Migrations\201610271649214_one6.Designer.cs">
+      <DependentUpon>201610271649214_one6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610271658199_one7.cs" />
+    <Compile Include="Migrations\201610271658199_one7.Designer.cs">
+      <DependentUpon>201610271658199_one7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610271704000_one8.cs" />
+    <Compile Include="Migrations\201610271704000_one8.Designer.cs">
+      <DependentUpon>201610271704000_one8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610271705368_one9.cs" />
+    <Compile Include="Migrations\201610271705368_one9.Designer.cs">
+      <DependentUpon>201610271705368_one9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610271725395_one10.cs" />
+    <Compile Include="Migrations\201610271725395_one10.Designer.cs">
+      <DependentUpon>201610271725395_one10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610280354328_one11.cs" />
+    <Compile Include="Migrations\201610280354328_one11.Designer.cs">
+      <DependentUpon>201610280354328_one11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610280358583_one12.cs" />
+    <Compile Include="Migrations\201610280358583_one12.Designer.cs">
+      <DependentUpon>201610280358583_one12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290605084_one13.cs" />
+    <Compile Include="Migrations\201610290605084_one13.Designer.cs">
+      <DependentUpon>201610290605084_one13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290611197_one14.cs" />
+    <Compile Include="Migrations\201610290611197_one14.Designer.cs">
+      <DependentUpon>201610290611197_one14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290612026_one15.cs" />
+    <Compile Include="Migrations\201610290612026_one15.Designer.cs">
+      <DependentUpon>201610290612026_one15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290710536_one16.cs" />
+    <Compile Include="Migrations\201610290710536_one16.Designer.cs">
+      <DependentUpon>201610290710536_one16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610290915177_one17.cs" />
+    <Compile Include="Migrations\201610290915177_one17.Designer.cs">
+      <DependentUpon>201610290915177_one17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610291431486_one18.cs" />
+    <Compile Include="Migrations\201610291431486_one18.Designer.cs">
+      <DependentUpon>201610291431486_one18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610291921267_one19.cs" />
+    <Compile Include="Migrations\201610291921267_one19.Designer.cs">
+      <DependentUpon>201610291921267_one19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301102528_one20.cs" />
+    <Compile Include="Migrations\201610301102528_one20.Designer.cs">
+      <DependentUpon>201610301102528_one20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610310336224_one21.cs" />
+    <Compile Include="Migrations\201610310336224_one21.Designer.cs">
+      <DependentUpon>201610310336224_one21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610310457581_one22.cs" />
+    <Compile Include="Migrations\201610310457581_one22.Designer.cs">
+      <DependentUpon>201610310457581_one22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610310522139_one23.cs" />
+    <Compile Include="Migrations\201610310522139_one23.Designer.cs">
+      <DependentUpon>201610310522139_one23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611020838000_one24.cs" />
+    <Compile Include="Migrations\201611020838000_one24.Designer.cs">
+      <DependentUpon>201611020838000_one24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021503559_one25.cs" />
+    <Compile Include="Migrations\201611021503559_one25.Designer.cs">
+      <DependentUpon>201611021503559_one25.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611030605402_one26.cs" />
+    <Compile Include="Migrations\201611030605402_one26.Designer.cs">
+      <DependentUpon>201611030605402_one26.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611030720564_one27.cs" />
+    <Compile Include="Migrations\201611030720564_one27.Designer.cs">
+      <DependentUpon>201611030720564_one27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611030721407_one28.cs" />
+    <Compile Include="Migrations\201611030721407_one28.Designer.cs">
+      <DependentUpon>201611030721407_one28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611031246329_one29.cs" />
+    <Compile Include="Migrations\201611031246329_one29.Designer.cs">
+      <DependentUpon>201611031246329_one29.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611031804514_one30.cs" />
+    <Compile Include="Migrations\201611031804514_one30.Designer.cs">
+      <DependentUpon>201611031804514_one30.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611070525490_one31.cs" />
+    <Compile Include="Migrations\201611070525490_one31.Designer.cs">
+      <DependentUpon>201611070525490_one31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611070731149_one32.cs" />
+    <Compile Include="Migrations\201611070731149_one32.Designer.cs">
+      <DependentUpon>201611070731149_one32.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611091604357_one33.cs" />
+    <Compile Include="Migrations\201611091604357_one33.Designer.cs">
+      <DependentUpon>201611091604357_one33.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611111354351_one34.cs" />
+    <Compile Include="Migrations\201611111354351_one34.Designer.cs">
+      <DependentUpon>201611111354351_one34.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612060819104_one35.cs" />
+    <Compile Include="Migrations\201612060819104_one35.Designer.cs">
+      <DependentUpon>201612060819104_one35.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Comment_Productlist.css" />
+    <Content Include="Content\detail.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\HomeIndex.css" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\Layout.css" />
+    <Content Include="Content\manageindex.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\productcreate.css" />
+    <Content Include="Content\Register.css" />
+    <Content Include="Content\saler.css" />
+    <Content Include="Content\_ChatIndex.css" />
+    <Content Include="Content\_Index.css" />
+    <Content Include="Content\_OrderList.css" />
+    <Content Include="Content\_ProductEdit.css" />
+    <Content Include="Content\_UserDataEdit.css" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="img\05c1348a7d53f02a1cc861f01d21878e-600x400.jpg" />
+    <Content Include="img\1.jpg" />
+    <Content Include="img\1477743180130.jpg" />
+    <Content Include="img\160927_hp_mantle_w39.jpg" />
+    <Content Include="img\2.jpg" />
+    <Content Include="img\3.jpg" />
+    <Content Include="img\logo.jpg" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\gomind %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\gomind.pubxml" />
+    <None Include="Properties\PublishProfiles\gomindproject10.pubxml" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\detail.js" />
+    <Content Include="Scripts\JavaScript.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\manageindex.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\procreate.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\saler.js" />
+    <Content Include="Scripts\SalerCommentEdit.js" />
+    <Content Include="Scripts\_Comment.js" />
+    <Content Include="Scripts\_OrderList.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\_UserDataEdit.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\One\Create.cshtml" />
+    <Content Include="Views\One\Delete.cshtml" />
+    <Content Include="Views\One\Details.cshtml" />
+    <Content Include="Views\One\Edit.cshtml" />
+    <Content Include="Views\One\Index.cshtml" />
+    <Content Include="Views\Twoes\Create.cshtml" />
+    <Content Include="Views\Twoes\Delete.cshtml" />
+    <Content Include="Views\Twoes\Details.cshtml" />
+    <Content Include="Views\Twoes\Edit.cshtml" />
+    <Content Include="Views\Twoes\Index.cshtml" />
+    <Content Include="Views\Shared\_ManageIndex.cshtml" />
+    <Content Include="Views\UserDatas\Create.cshtml" />
+    <Content Include="Views\UserDatas\Delete.cshtml" />
+    <Content Include="Views\UserDatas\Details.cshtml" />
+    <Content Include="Views\UserDatas\Edit.cshtml" />
+    <Content Include="Views\UserDatas\Index.cshtml" />
+    <Content Include="Views\Shared\_ChangePassword.cshtml" />
+    <Content Include="Views\Shared\_ChangePhoneNumber.cshtml" />
+    <Content Include="Views\Shared\_SettingIndex.cshtml" />
+    <Content Include="Views\Shared\_SaleSettingIndex.cshtml" />
+    <Content Include="Views\Settings\Create.cshtml" />
+    <Content Include="Views\Settings\Delete.cshtml" />
+    <Content Include="Views\Settings\Details.cshtml" />
+    <Content Include="Views\Settings\Edit.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
+    <Content Include="Views\Shared\_ProductFollow.cshtml" />
+    <Content Include="Views\Shared\_FollowUser.cshtml" />
+    <Content Include="Views\Shared\_OrderList.cshtml" />
+    <Content Include="Views\Shared\_ChatMe.cshtml" />
+    <Content Include="Views\Shared\_UserDataEdit.cshtml" />
+    <Content Include="Views\SaleSettings\Create.cshtml" />
+    <Content Include="Views\SaleSettings\Delete.cshtml" />
+    <Content Include="Views\SaleSettings\Details.cshtml" />
+    <Content Include="Views\SaleSettings\Edit.cshtml" />
+    <Content Include="Views\SaleSettings\Index.cshtml" />
+    <Content Include="Views\Shared\_VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\_SettingEdit.cshtml" />
+    <Content Include="Views\Shared\_SaleSettingEdit.cshtml" />
+    <Content Include="Views\UserDatas\Saler.cshtml" />
+    <Content Include="Views\Shared\_SalerContentEdit.cshtml" />
+    <Content Include="Views\Shared\_SalerContentIndex.cshtml" />
+    <Content Include="Views\UserDatas\Salers.cshtml" />
+    <Content Include="Views\ProductLists\Create.cshtml" />
+    <Content Include="Views\ProductLists\Delete.cshtml" />
+    <Content Include="Views\ProductLists\Details.cshtml" />
+    <Content Include="Views\ProductLists\Edit.cshtml" />
+    <Content Include="Views\ProductLists\Index.cshtml" />
+    <Content Include="Views\Shared\_CommentProductIndex.cshtml" />
+    <Content Include="Views\Comment_Product\Create.cshtml" />
+    <Content Include="Views\Comment_Product\Delete.cshtml" />
+    <Content Include="Views\Comment_Product\Details.cshtml" />
+    <Content Include="Views\Comment_Product\Edit.cshtml" />
+    <Content Include="Views\Comment_Product\Index.cshtml" />
+    <Content Include="Views\Shared\_ProductListFollow.cshtml" />
+    <Content Include="Views\Chats\Create.cshtml" />
+    <Content Include="Views\Chats\Delete.cshtml" />
+    <Content Include="Views\Chats\Details.cshtml" />
+    <Content Include="Views\Chats\Edit.cshtml" />
+    <Content Include="Views\Chats\Index.cshtml" />
+    <Content Include="Views\ChatMessages\Create.cshtml" />
+    <Content Include="Views\ChatMessages\Delete.cshtml" />
+    <Content Include="Views\ChatMessages\Details.cshtml" />
+    <Content Include="Views\ChatMessages\Edit.cshtml" />
+    <Content Include="Views\ChatMessages\Index.cshtml" />
+    <Content Include="Views\Chats\ChatIndex.cshtml" />
+    <Content Include="Views\Shared\_Chat.cshtml" />
+    <Content Include="Views\Shared\_ChatMessage.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Shared\_Product.cshtml" />
+    <Content Include="Views\Chats\Chats.cshtml" />
+    <Content Include="Views\Chats\ChatDetail.cshtml" />
+    <Content Include="Views\Shared\_ChatMeTo.cshtml" />
+    <Content Include="Views\Files\Create.cshtml" />
+    <Content Include="Views\Files\Delete.cshtml" />
+    <Content Include="Views\Files\Details.cshtml" />
+    <Content Include="Views\Files\Edit.cshtml" />
+    <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\UserFiles\Create.cshtml" />
+    <Content Include="Views\UserFiles\Delete.cshtml" />
+    <Content Include="Views\UserFiles\Details.cshtml" />
+    <Content Include="Views\UserFiles\Edit.cshtml" />
+    <Content Include="Views\UserFiles\Index.cshtml" />
+    <Content Include="Views\FollowUsers\Create.cshtml" />
+    <Content Include="Views\FollowUsers\Delete.cshtml" />
+    <Content Include="Views\FollowUsers\Details.cshtml" />
+    <Content Include="Views\FollowUsers\Edit.cshtml" />
+    <Content Include="Views\FollowUsers\Index.cshtml" />
+    <Content Include="Views\Shared\_BuyOrder.cshtml" />
+    <Content Include="Views\Shared\_Comment.cshtml" />
+    <Content Include="Views\Comment_Member\Create.cshtml" />
+    <Content Include="Views\Comment_Member\Delete.cshtml" />
+    <Content Include="Views\Comment_Member\Details.cshtml" />
+    <Content Include="Views\Comment_Member\Edit.cshtml" />
+    <Content Include="Views\Comment_Member\Index.cshtml" />
+    <Content Include="Views\Shared\_GetComment.cshtml" />
+    <Content Include="Views\Shared\_GiveComment.cshtml" />
+    <Content Include="Views\Shared\_OrderEdit.cshtml" />
+    <Content Include="Views\Shared\_Commentto.cshtml" />
+    <Content Include="Views\Shared\_OrderDelete.cshtml" />
+    <Content Include="Views\Comment_Member\Search.cshtml" />
+    <Content Include="Views\Chats\btnchat.cshtml" />
+    <Content Include="Views\Shared\_EditComment.cshtml" />
+    <Content Include="Views\FollowTables\Create.cshtml" />
+    <Content Include="Views\FollowTables\Delete.cshtml" />
+    <Content Include="Views\FollowTables\Details.cshtml" />
+    <Content Include="Views\FollowTables\Edit.cshtml" />
+    <Content Include="Views\FollowTables\Index.cshtml" />
+    <Content Include="Views\FollowTables\My.cshtml" />
+    <Content Include="Views\Chats\My.cshtml" />
+    <Content Include="Views\Shared\_PagedList.cshtml" />
+    <Content Include="Views\ProductLists\Detailkindo.cshtml" />
+    <Content Include="Views\ProductLists\Detailkindt.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="userimg\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610250533464_one.resx">
+      <DependentUpon>201610250533464_one.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250553346_one1.resx">
+      <DependentUpon>201610250553346_one1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250559065_one2.resx">
+      <DependentUpon>201610250559065_one2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250600162_one3.resx">
+      <DependentUpon>201610250600162_one3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250649156_one4.resx">
+      <DependentUpon>201610250649156_one4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250652126_one5.resx">
+      <DependentUpon>201610250652126_one5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610271649214_one6.resx">
+      <DependentUpon>201610271649214_one6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610271658199_one7.resx">
+      <DependentUpon>201610271658199_one7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610271704000_one8.resx">
+      <DependentUpon>201610271704000_one8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610271705368_one9.resx">
+      <DependentUpon>201610271705368_one9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610271725395_one10.resx">
+      <DependentUpon>201610271725395_one10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610280354328_one11.resx">
+      <DependentUpon>201610280354328_one11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610280358583_one12.resx">
+      <DependentUpon>201610280358583_one12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290605084_one13.resx">
+      <DependentUpon>201610290605084_one13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290611197_one14.resx">
+      <DependentUpon>201610290611197_one14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290612026_one15.resx">
+      <DependentUpon>201610290612026_one15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290710536_one16.resx">
+      <DependentUpon>201610290710536_one16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610290915177_one17.resx">
+      <DependentUpon>201610290915177_one17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610291431486_one18.resx">
+      <DependentUpon>201610291431486_one18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610291921267_one19.resx">
+      <DependentUpon>201610291921267_one19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301102528_one20.resx">
+      <DependentUpon>201610301102528_one20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610310336224_one21.resx">
+      <DependentUpon>201610310336224_one21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610310457581_one22.resx">
+      <DependentUpon>201610310457581_one22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610310522139_one23.resx">
+      <DependentUpon>201610310522139_one23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611020838000_one24.resx">
+      <DependentUpon>201611020838000_one24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021503559_one25.resx">
+      <DependentUpon>201611021503559_one25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611030605402_one26.resx">
+      <DependentUpon>201611030605402_one26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611030720564_one27.resx">
+      <DependentUpon>201611030720564_one27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611030721407_one28.resx">
+      <DependentUpon>201611030721407_one28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611031246329_one29.resx">
+      <DependentUpon>201611031246329_one29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611031804514_one30.resx">
+      <DependentUpon>201611031804514_one30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611070525490_one31.resx">
+      <DependentUpon>201611070525490_one31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611070731149_one32.resx">
+      <DependentUpon>201611070731149_one32.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611091604357_one33.resx">
+      <DependentUpon>201611091604357_one33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611111354351_one34.resx">
+      <DependentUpon>201611111354351_one34.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612060819104_one35.resx">
+      <DependentUpon>201612060819104_one35.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58574</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58574/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

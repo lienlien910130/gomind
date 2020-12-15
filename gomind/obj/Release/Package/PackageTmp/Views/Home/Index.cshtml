@@ -1,0 +1,709 @@
+﻿@model IPagedList<gomind.Models.ProductList>
+@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/HomeIndex.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomind</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="~/Content/font-awesome.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" media="screen" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('body').append('<div id="toTop" class="btn btn-info"><span class="glyphicon glyphicon-chevron-up"></span> Top</div>');
+            $(window).scroll(function () {
+                if ($(this).scrollTop() != 0) {
+                    $('#toTop').fadeIn();
+                } else {
+                    $('#toTop').fadeOut();
+                }
+            });
+            $('#toTop').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
+         
+    </script>
+    <style>
+        #toTop {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            display: none;
+        }
+       #halsl {
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            font-family:'Microsoft JhengHei UI','Microsoft JhengHei';
+            font-size:large;
+        }
+    </style>
+    <script>
+         window.setInterval(function () {
+                 search()
+         }, 2000);
+
+             function search() {
+                 $.getJSON({
+                     type: "GET",
+                     url: "/home/GetChat",
+                     datatype: "Json",
+                     data: { id: '@Session["userid"]' },
+                     success: function (data) {
+                         //$("#halsl").html("");
+                         if (data.length > 0) {
+                             for (x in data) {
+                                 //$("#halsl").html(
+                                 //$("#halsl").html() +
+                                 //'<div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('#halsl').append(
+                                 ' <div class="btn btn-default btn-lg btn-block chat" style="background-color:red">你有新訊息</div>');
+                                 $('.chat').click(function () {
+                                         $.ajax({
+                                             url: "/Chats/btnchat",
+                                             type: 'GET',
+                                             data: { id: data[x].ID },
+                                             success: function (result) {
+                                                 window.location = "Chats/ChatDetail?id=" + data[x].ID;
+
+                                                 //window.open("Chats/ChatDetail?id=" + data[x].ID ,'_blank', "");
+                                             
+                                             }
+                                         });
+                                     });
+                             }
+                         }
+                         else {
+
+                         }
+
+                     },
+                error: function () {
+
+                     }
+                 });
+             }
+        $(document).ready(function () {
+
+            $('#search').keydown(function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $("#cha").click();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="~/img/logo.jpg" class="img-responsive" />
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+        </div>
+    </div>
+   
+    <hr />
+    <div class="row carousel-holder">
+        <div class="col-md-12">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img class="slide-image" src="~/img/1.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slide-image" src="~/img/2.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slide-image" src="~/img/3.jpg" alt="">
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-3 hidden-xs hidden-sm" id="me">
+                <div class="panel-group collapse navbar-collapse" id="accordion">
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse" data-target-id="1" data-parent="#accordion" href="#collapseOne"><i class="fa fa-male fa-2x" aria-hidden="true"></i> 衣著服飾</a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr>
+                                                    <td>
+                                                        <li class="active">
+                                                            @Ajax.ActionLink("女裝", "SearchKind", "ProductLists", new { id = 1 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                                    </li>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <li class="">
+                                                        @Ajax.ActionLink("男裝", "SearchKind", "ProductLists", new { id = 2 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                                </li>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-target-id="6" data-parent="#accordion" href="#collapseTwo"><i class="fa fa-shopping-bag fa-lg" aria-hidden="true"></i> 鞋包配件</a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <table class="table">
+                                        <tr>
+                                            <td>
+                                                <li class="active">
+                                                    @Ajax.ActionLink("包包", "SearchKind", "ProductLists", new { id = 3 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                            </li>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <li class="">
+                                                @Ajax.ActionLink("女鞋", "SearchKind", "ProductLists", new { id = 4 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                        </li>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <li class="active">
+                                            @Ajax.ActionLink("男鞋", "SearchKind", "ProductLists", new { id = 5 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                    </li>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("衣服配件", "SearchKind", "ProductLists", new { id = 6 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="active">
+                                    @Ajax.ActionLink("飾品配件", "SearchKind", "ProductLists", new { id = 7 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="11" data-parent="#accordion" href="#collapseThree"><i class="fa fa-book fa-lg" aria-hidden="true"></i> 圖書文具</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("書籍", "SearchKind", "ProductLists", new { id = 8 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("文具", "SearchKind", "ProductLists", new { id = 9 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="21" data-parent="#accordion" href="#collapseFive"><i class="fa fa-mobile fa-2x" aria-hidden="true"></i> 3C 家電</a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("3C產品", "SearchKind", "ProductLists", new { id = 10 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("電腦周邊產品", "SearchKind", "ProductLists", new { id = 11 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="active">
+                                @Ajax.ActionLink("手機周邊產品", "SearchKind", "ProductLists", new { id = 12 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="active">
+                            @Ajax.ActionLink("攝影周邊產品", "SearchKind", "ProductLists", new { id = 13 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("家電", "SearchKind", "ProductLists", new { id = 14 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="26" data-parent="#accordion" href="#collapseSix"><i class="fa fa-home fa-lg" aria-hidden="true"></i> 居家生活</a>
+                    </h4>
+                </div>
+                <div id="collapseSix" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("居家用品", "SearchKind", "ProductLists", new { id = 15 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("家具織品", "SearchKind", "ProductLists", new { id = 16 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="active">
+                                @Ajax.ActionLink("清潔用品", "SearchKind", "ProductLists", new { id = 17 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="active">
+                            @Ajax.ActionLink("餐具", "SearchKind", "ProductLists", new { id = 18 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("廚具", "SearchKind", "ProductLists", new { id = 19 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("園藝", "SearchKind", "ProductLists", new { id = 20 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="32" data-parent="#accordion" href="#collapseSeven"><i class="fa fa-heart fa-lg" aria-hidden="true"></i> 美妝保養</a>
+                    </h4>
+                </div>
+                <div id="collapseSeven" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("臉部清潔保養", "SearchKind", "ProductLists", new { id = 21 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("眼唇保養", "SearchKind", "ProductLists", new { id = 22 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="active">
+                                @Ajax.ActionLink("彩妝美甲", "SearchKind", "ProductLists", new { id = 23 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="active">
+                            @Ajax.ActionLink("香水", "SearchKind", "ProductLists", new { id = 24 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("身體清潔保養", "SearchKind", "ProductLists", new { id = 25 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("美齒潔牙", "SearchKind", "ProductLists", new { id = 26 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("頭髮清潔護理", "SearchKind", "ProductLists", new { id = 27 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="40" data-parent="#accordion" href="#collapseEight"><i class="fa fa-cutlery fa-lg" aria-hidden="true"></i> 品味美食</a>
+                    </h4>
+                </div>
+                <div id="collapseEight" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("甜品零食", "SearchKind", "ProductLists", new { id = 28 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("沖泡飲品", "SearchKind", "ProductLists", new { id = 29 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="active">
+                                @Ajax.ActionLink("生鮮美食", "SearchKind", "ProductLists", new { id = 30 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="active">
+                            @Ajax.ActionLink("保健食品", "SearchKind", "ProductLists", new { id = 31 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="44" data-parent="#accordion" href="#collapseNine"><i class="fa fa-odnoklassniki fa-lg" aria-hidden="true"></i> 孕婦嬰兒</a>
+                    </h4>
+                </div>
+                <div id="collapseNine" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("孕婦服飾", "SearchKind", "ProductLists", new { id = 32 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("嬰兒服飾", "SearchKind", "ProductLists", new { id = 33 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="">
+                                @Ajax.ActionLink("童鞋", "SearchKind", "ProductLists", new { id = 34 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="">
+                            @Ajax.ActionLink("其他", "SearchKind", "ProductLists", new { id = 35 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="48" data-parent="#accordion" href="#collapseTen"><i class="fa fa-paw fa-lg" aria-hidden="true"></i> 寵物用品</a>
+                    </h4>
+                </div>
+                <div id="collapseTen" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("項圈鍊子吊牌", "SearchKind", "ProductLists", new { id = 36 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("寵物衣", "SearchKind", "ProductLists", new { id = 37 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <li class="active">
+                                @Ajax.ActionLink("床墊", "SearchKind", "ProductLists", new { id = 38 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                        </li>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <li class="active">
+                            @Ajax.ActionLink("清潔用品", "SearchKind", "ProductLists", new { id = 39 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                    </li>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("玩具", "SearchKind", "ProductLists", new { id = 40 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <li class="active">
+                        @Ajax.ActionLink("餐具", "SearchKind", "ProductLists", new { id = 41 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                </li>
+            </td>
+            </tr>
+            </table>
+            </div>
+            </div>
+            </div>
+            <div class="panel panel-default nav nav-pills nav-stacked admin-menu">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target-id="54" data-parent="#accordion" href="#collapseEleven"><i class="fa fa-car fa-lg" aria-hidden="true"></i> 汽機車精品</a>
+                    </h4>
+                </div>
+                <div id="collapseEleven" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <li class="active">
+                                        @Ajax.ActionLink("機車", "SearchKind", "ProductLists", new { id = 42 }, new AjaxOptions
+                                                                          { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                                </li>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li class="">
+                                    @Ajax.ActionLink("汽車", "SearchKind", "ProductLists", new { id = 43 }, new AjaxOptions
+                                                                    { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" })
+                            </li>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            </div>
+
+</div>
+</div>
+
+<div class="col-md-9">
+    <div class="row">
+        <div class="hidden-sm hidden-xs">
+            @using (Ajax.BeginForm("Search", "ProductLists", new AjaxOptions { UpdateTargetId = "productchange", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))
+            {
+                <div class="row">
+                    <div class="col-lg-7">
+                        <input type="text" class="form-control input-group-lg" placeholder="Search" name="search" id="search">
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.DropDownList("dropdownlist", (IEnumerable<SelectListItem>)ViewBag.Item, "---------------", new { @class = "form-control select-insurance-information col-lg-3 input-group-lg" })
+                    </div> 
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-group-lg" type="submit" id="cha"><i class="glyphicon glyphicon-search "></i></button>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <br /><br />
+    <div id="productchange">
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="project">
+                        <figure class="img-responsive">
+                            @if (item.url != "" || item.url != null)
+                            {
+                                <a href="@Url.Action("Details","ProductLists", new { id = item.number })"> 
+                                     <img src="/Files/GetPImage?id=@item.number" alt="" style="height:300px">
+                                </a>
+                            }
+                            <figcaption>
+                                <span class="project-details">@Html.ActionLink(item.prodlist_name, "Details", "ProductLists", new { id = item.number }, null)</span>
+                                <span class="project-price"><strong>$ @item.prodlist_price </strong></span>
+                                <span class="project-creator"><i class="fa fa-heart" aria-hidden="true" style="color:lightpink"></i> @item.prodlist_followtimes</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            }
+        </div>
+         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+<div id="halsl"></div>
+</div>
+</div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryajax")
